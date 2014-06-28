@@ -1,77 +1,50 @@
+#include <vector>
 #include <iostream>
-#include <list>
-#include <queue>
+#include <algorithm>
 #include <string>
-
-#define MAX_LEN_NOME 15
-#define QT_PTOS      12
+#include <queue>
 
 using namespace std;
 
-class ClasseCompara
-{
-	public:
-		bool operator() (pair<int, string> a, pair<int, string>b) const
-		{
-			if (a.first != b.first)
-				return a.first < b.first;
-			return a.second > b.second;
-		}
-};
+#define EACH(it,v) for(__typeof((v).begin()) it = (v).begin(); it != (v).end(); ++it)
 
-int main(void)
-{
-	pair<int, string> jogador;
-	priority_queue< pair<int, string>, vector< pair<int, string> >, ClasseCompara> jogadores;
-	
-	char nome[MAX_LEN_NOME+1];
-	int n, i, last, t, pos;
-	int max, min, soma, pto;
-	
-	t = 1;
-	while (scanf("%d", &n) && n)
-	{
-		while (n--)
-		{
-			scanf ("%s", nome);
-			
-			min = 1001; max = 0; soma = 0;
-			for (i = 0; i < QT_PTOS; i++)
-			{
-				scanf ("%d", &pto);
-				soma += pto;
-				if (pto > max) max = pto;
-				if (pto < min) min = pto;
-			}
-			
-			soma -= (max + min);
-			
-			jogadores.push(pair<int, string> (soma, nome));
-		}
+int main(void) {
+	string nome;
+	int ponto, maior, menor, pontos;
+	int N, T = 0;
 
-	
-		printf ("Teste %d\n", t++);
+	while (1) {
+		cin >> N;
+		if (!N) break;
 
-		pos = 1;
-		i = 1;
-		last = jogador.first;
-		
-		while (!jogadores.empty())
-		{
-			jogador = pair<int, string> (jogadores.top());
-			
-			if (last != jogador.first)
-			{
-				pos = i;
-				last = jogador.first;
+		vector<pair<int, string> > lista;
+
+		while (N--) {
+			cin >> nome;
+			maior = -1; menor = 0x3f3f3f3f;	pontos = 0;
+
+			for (int i = 0; i < 12; ++i) {
+				cin >> ponto;
+				pontos += ponto;
+				if (ponto > maior) maior = ponto;
+				if (ponto < menor) menor = ponto;
 			}
 
-			printf ("%d %d %s\n", pos, jogador.first, jogador.second.c_str());
-			jogadores.pop();
-			i++;
+			lista.push_back(make_pair(-(pontos - maior - menor), nome));
 		}
-		printf ("\n");
-	}
-	
+
+		cout << "Teste " << ++T << endl;
+		int old = -1, pos = 0, curr = 0;
+		EACH(it,lista) {
+			curr++;
+			if (it->first != old) {
+				pos = curr;
+				old = it->first;
+			}
+			cout << pos << " " << -it->first << " " << it->second << endl;
+		}
+		cout << endl;
+	}	
+
 	return 0;
 }

@@ -1,3 +1,4 @@
+/* http://br.spoj.pl/problems/BAFP */
 #include <stdio.h>
 
 int main(void)

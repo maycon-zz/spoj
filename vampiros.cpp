@@ -29,6 +29,10 @@ int main(void)
 		vector<double> s(len+1);
 		
 		s[pos] = 1;
+		printf ("[ ");
+		for (int i = 0; i < len+1; i++) printf ("%.06lf ", s[i]);
+		printf ("]\n");
+
 		while ((s[0] + s[len]) < 0.99999f)
 		{
 			for (int i = 1; i < len; i ++)
@@ -37,6 +41,9 @@ int main(void)
 				s[i-1] += q*s[i];
 				s[i+1] += p*s[i];
 				s[i] = 0;
+				printf ("[ ");
+				for (int i = 0; i < len+1; i++) printf ("%.06lf ", s[i]);
+				printf ("]\n");
 			}
 		}
 

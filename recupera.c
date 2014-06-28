@@ -2,30 +2,31 @@
 
 int main(void)
 {
-	int n, i, v, soma, foi;
+	int n, i, v, soma, achou, resultado;
 	int t = 1;
 	
 	while (scanf ("%d", &n) != EOF)
 	{
 		soma = 0;
-		foi = 0;
-		for (i = 1; (i <= n) && !foi; i++)
+		achou = 0;
+		
+		for (i = 0; i < n; i++)
 		{
-			if (soma == i)
-			{
-				printf ("Instancia %d\n%d\n\n", t++, soma);
-				foi = 1;
-			}
-
 			scanf ("%d", &v);
+			if (!achou && (soma == v))
+			{
+				achou = 1;
+				resultado = soma;
+			}
 			soma += v;
 		}
-
-		while (i <= n) { i++; scanf ("%*d"); }
 		
-		if (!foi)
-		{
+		if (achou)
+			printf ("Instancia %d\n%d\n\n", t++, resultado);
+		else
 			printf ("Instancia %d\nnao achei\n\n", t++);
-		}
 	}
+
+	return 0;
 }
+

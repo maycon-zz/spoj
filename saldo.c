@@ -11,9 +11,8 @@ int main(void)
 	
 	while ((scanf ("%d", &n) != EOF) && n)
 	{
-		m = 0;
-		s = 0;
-		aux = 1;
+		m = s = 0;
+		ini = fin = aux = 1;
 		
 		for (i = 1;	i <= n;	i++)
 		{
@@ -22,15 +21,18 @@ int main(void)
 
 			if (s < 0)
 			{
-				aux = i+1;
+				aux = i+1; // inicio temporario
 				s = 0;
 			}
-			else if (s >= m)
+
+			// obtive uma soma maior
+			if (s >= m)
 			{
 				ini = aux;
 				fin = i;
 				m = s;
 			}
+			
 		}
 
 		if (m == 0)

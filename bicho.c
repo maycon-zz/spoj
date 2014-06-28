@@ -1,39 +1,31 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
 
-int main(void)
-{
-	
-	int m, gm, n, gn;
-	double v, r;
-	
-	while (1)
-	{
-		scanf ("%lf %d %d", &v, &n, &m);
-
-		if (!v && !n && !m)
-			break;
-		
-		r = 0;
-
-		if ((m % 10000) == (n % 10000)) r = 3000;
-		else if ((m % 1000) == (n % 1000)) r = 500;
-		else if ((m % 100) == (n % 100)) r = 50;
+int main (){
+	int n=0,m=0;
+	double v=0.00;
+	while ( scanf( "%lf %d %d",&v,&n,&m ) && ( v != 0 ||  n != 0 || m != 0 ) ){
+		if ( n%10000 == m%10000 ) 
+			printf ("%.2lf\n",v*3000);
 		else
-		{
-			// Calcula os grupos
-			gm = (int)ceil((m % 100) / 4.0f);
-			gn = (int)ceil((n % 100) / 4.0f);
-			
-			// caso seja 00, deve ir para o grupo 25
-			if (!gm) gm = 25;
-			if (!gn) gn = 25;
-					
-			// Pertencem ao mesmo grupo
-			if (gm == gn) r = 16;
-		}
-		
-		printf ("%.02lf\n", r * v);
+			if ( n%1000 == m%1000 )
+				printf ( "%.2lf\n",v*500 );
+			else
+				if ( n%100 == m%100 )
+					printf ( "%.2lf\n",v*50 );
+				else
+					if ( n%100 == 0 || m%100 == 0 ) {
+						if ( ceil( (n%100)/4.00 ) == 0 && ceil( (m%100/4.00) ) == 25 )
+							printf ("%.2lf\n",v*16);
+						else
+							if ( ceil( (m%100)/4.00 ) == 0 && ceil( (n%100/4.00) ) == 25 )
+								printf ("%.2lf\n",v*16);
+					}else
+						if ( ceil( (n%100)/4.00 ) == ceil( (m%100)/4.00 ) )
+							printf ("%.2lf\n",v*16);
+						else
+							printf ("%.2lf\n",0);
 	}
-
 	return 0;
 }
